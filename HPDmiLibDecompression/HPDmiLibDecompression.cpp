@@ -1,13 +1,8 @@
 // HPDmiLibDecompression.cpp
 // Decompressor tool for dmi.lib
-// Sources: https://stackoverflow.com/questions/15916695/can-anyone-give-me-example-code-of-dupenv-s/15916732 (for dupenv usage)
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <stdlib.h> 
-#include <string>
-#include <vector>
-#include <windows.h>
 #include <fstream>
+#include <windows.h>
 
 //Extraction of directory from file name: https://stackoverflow.com/questions/8518743/get-directory-from-file-path-c
 
@@ -16,7 +11,7 @@ std::string PathFromFullPath(std::string filename) {
 	const size_t last_slash_idx = filename.rfind('\\');
 	if (std::string::npos != last_slash_idx)
 	{
-		directory = filename.substr(0, last_slash_idx + 1);
+		directory = filename.substr(0, last_slash_idx + 1); //MODIFICATION: Add a backward slash
 	}
 	return directory;
 }
@@ -42,6 +37,8 @@ int main(int argc, char *argv[])
 		std::string Password = "yynufrQ"; //Note: this is the password used for the dmi.lib decompression found in CPC_DMI
 		char* buf = nullptr; //Assign and buf char parameter
 		size_t sz = 0; //Size 
+		//dupenv example: https://stackoverflow.com/questions/15916695/can-anyone-give-me-example-code-of-dupenv-s/15916732
+		//Note: might be modified
 		if (_dupenv_s(&buf, &sz, "HPDMILIBTOOL") == 0 && buf != nullptr) //Check that the %HPDMILIBTOOL% value exists
 		{
 			//Yes, env value set.
