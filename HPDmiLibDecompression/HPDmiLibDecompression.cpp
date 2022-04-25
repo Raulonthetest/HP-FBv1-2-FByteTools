@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 			std::string CpcDmiPath = PathFromFullPath(DmiLibPath) + ZipGetFirstFileName(DmiLibPath);
 			//Checking file: https://www.tutorialspoint.com/the-best-way-to-check-if-a-file-exists-using-standard-c-cplusplus
 			if (ZipGetFirstFileName(DmiLibPath) != "cpc_dmi.ini") {
-				SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | 6); //Red and bold
+				SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | 6); //Yellow and bold
 				printf("Output filename is not cpc_dmi.ini\nPlease rename the file %s to cpc_dmi.ini\n", ZipGetFirstFileName(DmiLibPath).c_str()); //Warning
 				SetConsoleTextAttribute(hConsole, 7); //Reset
 			}
