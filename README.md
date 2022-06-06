@@ -3,7 +3,7 @@ Program used to convert HP FlexBuild 1.x/2.0 FByte information to DMI Type 11 an
 # Usage
 HPFByteDMITool <type> <string>
 where:
-- type: conversion source: /d - DMI T11, /f - FByte sticker
+- type: conversion source: -t11 - DMI T11, -fbyte - FByte sticker
 - string: string from DMI Type 11 (if /d is used) or FByte sticker (if /f is used). Examples: bid=YSRGOBXXXR;ABC;DEF... (DMI); 2S2U 3233 3E3K.../2S2U32333E3K... (BID and FByte sticker on product)
 # Notes
 This program uses the FByte information of HP's CPC_DMI tool's dmi.lib which needs to be decompressed before usage.
