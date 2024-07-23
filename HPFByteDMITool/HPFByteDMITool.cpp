@@ -15,7 +15,7 @@ void Ini2Pair(const std::string& iniFilePath, const std::string& sectionName,
 
 	int charsRead = 0;
 
-	charsRead = GetPrivateProfileSection(sectionName.c_str(), buffer, bufferSize, iniFilePath.c_str());
+	charsRead = GetPrivateProfileSectionA(sectionName.c_str(), buffer, bufferSize, iniFilePath.c_str());
 	// if there isn't enough space, returns bufferSize - 2
 
 	// if we got some data...

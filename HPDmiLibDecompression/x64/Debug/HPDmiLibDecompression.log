@@ -1,0 +1,3 @@
+﻿  HPDmiLibDecompression.cpp
+d:\gh_projects\HP-FBv1-2-FByteTools\HPDmiLibDecompression\HPDmiLibDecompression.cpp(34): warning C4715: 'ZipGetFirstFileName': not all control paths return a value
+  HPDmiLibDecompression.vcxproj -> d:\gh_projects\HP-FBv1-2-FByteTools\x64\Debug\HPDmiLibDecompression.exe
