@@ -8,6 +8,14 @@
 
 typedef std::pair<std::string, std::string> NameValuePair;
 
+void PrintColor(HANDLE hConsole, int color, const char* format, ...) {
+	va_list args;
+	va_start(args, format);
+	SetConsoleTextAttribute(hConsole, color);
+	vprintf(format, args);
+	SetConsoleTextAttribute(hConsole, 7); //Reset
+	va_end(args);
+}
 void Ini2Pair(const std::string& iniFilePath, const std::string& sectionName,
 	std::vector<NameValuePair>& nameValuePairs) {
 	const int bufferSize = 10000;
@@ -87,9 +95,7 @@ int main(int argc, char *argv[])
 				std::vector<std::string> tokens;
 				std::string temp_str;
 
-				SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | 6); //Yellow and bold
-				printf("Note:\nIf the PC was preloaded with Windows XP, there will be a 9-digit configuration value (e.g. \"0nx141100\") and a dot preceding this conversion.\nTo readd it, write after \"FeatureByte=\" the first 7 digits and last 2 digits of the SMBIOS Type 1 System Version and a dot before you write the converted value\n");
-				SetConsoleTextAttribute(hConsole, 7); //Reset
+				PrintColor(hConsole, FOREGROUND_INTENSITY | 6, "Note:\nIf the PC was preloaded with Windows XP, there will be a 9-digit configuration value (e.g. \"0nx141100\") and a dot preceding this conversion.\nTo readd it, write after \"FeatureByte=\" the first 7 digits and last 2 digits of the SMBIOS Type 1 System Version and a dot before you write the converted value\n");
 
 				while (getline(ss, temp_str, ';')) { //use comma as delim for cutting string
 					tokens.push_back(temp_str);
@@ -116,9 +122,7 @@ int main(int argc, char *argv[])
 			}
 			else {
 				//Signal an alarm to user to type them!
-				SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | FOREGROUND_RED); //Red and bold
-				printf("No SMBIOS Type 11 values are typed\n"); //Failed
-				SetConsoleTextAttribute(hConsole, 7); //Reset
+				PrintColor(hConsole, FOREGROUND_INTENSITY | FOREGROUND_RED, "No SMBIOS Type 11 values are typed\n");
 				return false;
 			}
 		}
@@ -151,9 +155,7 @@ int main(int argc, char *argv[])
 						t11 += tokens[i];
 					}
 				}
-				SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | 6); //Yellow and bold
-				printf("Note:\nThere is no Build ID, so you have to add it and a semicolon (e.g. \"bid=83NAv6PrA1;\") preceding this conversion.\n");
-				SetConsoleTextAttribute(hConsole, 7); //Reset
+				PrintColor(hConsole, FOREGROUND_INTENSITY | 6, "Note:\nThere is no Build ID, so you have to add it and a semicolon (e.g. \"bid=83NAv6PrA1;\") preceding this conversion.\n");
 
 				for (int a = 0; (unsigned)a < t11.size(); a = a + 2) {
 					std::string pair = t11.substr(a, 2);
@@ -170,9 +172,7 @@ int main(int argc, char *argv[])
 			}
 			else {
 				//Signal an alarm to user to type them!
-				SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | FOREGROUND_RED); //Red and bold
-				printf("No FeatureByte sticker values are typed\n"); //Failed
-				SetConsoleTextAttribute(hConsole, 7); //Reset
+				PrintColor(hConsole, FOREGROUND_INTENSITY | FOREGROUND_RED, "No FeatureByte sticker values are typed\n");
 				return false;
 			}
 		}
@@ -181,13 +181,9 @@ int main(int argc, char *argv[])
 		//Print usage
 		printf("Usage of program: %s <path to cpc_dmi.ini> <type> <values>\n", argv[0]);
 		printf("Where:\ntype = -t11 (Type11 -> FByte), -fbyte (FByte -> Type11)\nvalues = the values\n");
-		SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | 6); //Yellow and bold
-		printf("Note:\nWhen using -fbyte option, please type the values after the \'FeatureByte=\' from the sticker\n");
+		PrintColor(hConsole, FOREGROUND_INTENSITY | 6, "Note:\nWhen using - fbyte option, please type the values after the \'FeatureByte=\' from the sticker\n");
 		printf("Example: FeatureByte=");
-		SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | FOREGROUND_GREEN); //Green and bold
-		printf("0n4141100....\n");
-		SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | 6); //Yellow and bold
-		printf("Where the green text is the value that needs to be typed.\n");
-		SetConsoleTextAttribute(hConsole, 7); //Reset
+		PrintColor(hConsole, FOREGROUND_INTENSITY | FOREGROUND_GREEN, "0n4141100....\n");
+		PrintColor(hConsole, FOREGROUND_INTENSITY | 6, "Where the green text is the value that needs to be typed.\n");
 	}	
 }
